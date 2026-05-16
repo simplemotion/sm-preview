@@ -19,10 +19,10 @@ where `<host-triple>` is `aarch64-apple-darwin`, `x86_64-apple-darwin`, `aarch64
 
 ## How to install
 
-Use the SimpleMotion installer at `get.simplemotion.com` and pass `--channel preview`:
+Use the SimpleMotion installer at `install.simplemotion.com` and pass `--channel preview`:
 
 ```bash
-bash -c "$(curl -fsSL https://get.simplemotion.com/sm-welcome.sh)" sm-welcome --channel preview
+bash -c "$(curl -fsSL https://install.simplemotion.com/sm-welcome.sh)" sm-welcome --channel preview
 ```
 
 The installer (in [`simplemotion/install`](https://github.com/simplemotion/install)) handles platform detection, SHA verification, sigstore attestation verification, and install. Don't fetch binaries directly from this repo unless you're verifying them out-of-band.
