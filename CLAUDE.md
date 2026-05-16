@@ -1,0 +1,57 @@
+# CLAUDE.md
+
+Guidance for Claude Code working in this repository.
+
+## What this repo is
+
+`simplemotion/preview` is the **public** binary-distribution surface for SimpleMotion's **preview** channel.
+
+- **Audience:** Early-access consumers — features in flight.
+- **Stability:** Pre-stable. Releases here MAY regress. Use `--channel release` for stable builds.
+
+Releases here are GitHub Release assets (binaries + `.sha256` + `.sigstore.jsonl`). No source code lives here — this repo is purely a distribution surface.
+
+## Four-repo architecture
+
+| Repo | Visibility | Role |
+|---|---|---|
+| `simplemotion/install` | public | Installer scripts + `get.simplemotion.com` Pages |
+| `simplemotion/release` | public | Production binaries |
+| `simplemotion/preview` | public | Preview / beta binaries |
+| `simplemotion/private` | private | Internal-stable binaries |
+| `simplemotion/testing` | private | In-flight test builds |
+
+Each channel has its own `releases/latest` namespace — no prerelease-flag coordination across repos. Consumers reach this channel via `--channel preview` in the installer scripts at `get.simplemotion.com`.
+
+## How releases land here
+
+Releases arrive via `repository_dispatch` from per-product source repos (in the `3400-0000-SM-Software` org). Source-repo `release.yml` workflows tag-route to the channel-appropriate target: bare `vX.Y.Z` → `simplemotion/release`; `vX.Y.Z-preview-NNN` → `simplemotion/preview`; `vX.Y.Z-private-NNN` → `simplemotion/private`; `vX.Y.Z-testing-NNN` → `simplemotion/testing`.
+
+The receiver is `.github/workflows/publish-release.yml`. It uses the SM-Binary-Bridge App to download artifacts from the source run and `gh release create` them here.
+
+## What this repo is NOT
+
+- **Not the installer.** Installer scripts live in `simplemotion/install` and route here via `--channel preview`.
+- **Not the source.** Per-product source repos under `3400-0000-SM-Software` build the binaries that land here.
+- **Not the build pipeline.** Builds run in the source repos; this repo only receives + publishes.
+
+## Working rules
+
+- **Public visibility is load-bearing.** Anything committed here is permanently public; do not paste internal docs, customer info, or credentials.
+- **No "Co-Authored-By" trailers** in commits.
+- **All IP assigned to SimpleMotion.Global Pty Ltd** per `ASSIGN.md`.
+- **No binaries in git history.** Binaries are GitHub Release assets only. Keep the working tree small.
+- **Versioning follows the SimpleMotion enterprise policy** (see appendix in `CHANGE.md`).
+
+## Secrets
+
+`publish-release.yml` consumes two secrets/variables provisioned at this repo:
+
+- `BRIDGE_APP_PRIVATE_KEY` (secret, b64-wrapped PEM) — SM-Binary-Bridge GitHub App private key.
+- `BRIDGE_APP_CLIENT_ID` (variable) — App's client ID.
+
+The App must be installed on `simplemotion` with `Contents:Write` on this repo, and on `3400-0000-SM-Software` with `Actions:Read` on every source repo that dispatches here.
+
+## When in doubt, ask
+
+Before adding new top-level files or changing `publish-release.yml`'s dispatch contract — the contract is consumed by every source repo's `release.yml`.
