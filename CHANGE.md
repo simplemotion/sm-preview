@@ -1,6 +1,6 @@
 # CHANGE.md
 
-Changelog for this repo (`simplemotion/preview`).
+Changelog for this repo (`simplemotion/sm-preview`).
 
 Versioning follows the SimpleMotion enterprise policy — `vX.Y.Z` releases, `vX.Y.Z-preview-NNN` candidates, `vX.Y.Z-cm-NNN` dev builds. Only releases and RCs are recorded here. **Full policy is in the appendix at the end of this file.**
 

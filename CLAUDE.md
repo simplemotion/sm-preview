@@ -4,7 +4,7 @@ Guidance for Claude Code working in this repository.
 
 ## What this repo is
 
-`simplemotion/preview` is the **public** binary-distribution surface for SimpleMotion's **preview** channel.
+`simplemotion/sm-preview` is the **public** binary-distribution surface for SimpleMotion's **preview** channel.
 
 - **Audience:** Early-access consumers — features in flight.
 - **Stability:** Pre-stable. Releases here MAY regress. Use `--channel release` for stable builds.
@@ -15,23 +15,23 @@ Releases here are GitHub Release assets (binaries + `.sha256` + `.sigstore.jsonl
 
 | Repo | Visibility | Role |
 |---|---|---|
-| `simplemotion/install` | public | Installer scripts + `install.simplemotion.com` Pages |
-| `simplemotion/release` | public | Production binaries |
-| `simplemotion/preview` | public | Preview / beta binaries |
-| `simplemotion/private` | private | Internal-stable binaries |
-| `simplemotion/testing` | private | In-flight test builds |
+| `simplemotion/sm-install` | public | Installer scripts + `install.simplemotion.com` Pages |
+| `simplemotion/sm-release` | public | Production binaries |
+| `simplemotion/sm-preview` | public | Preview / beta binaries |
+| `simplemotion/sm-private` | private | Internal-stable binaries |
+| `simplemotion/sm-testing` | private | In-flight test builds |
 
 Each channel has its own `releases/latest` namespace — no prerelease-flag coordination across repos. Consumers reach this channel via `--channel preview` in the installer scripts at `install.simplemotion.com`.
 
 ## How releases land here
 
-Releases arrive via `repository_dispatch` from per-product source repos (in the `3400-0000-SM-Software` org). Source-repo `release.yml` workflows tag-route to the channel-appropriate target: bare `vX.Y.Z` → `simplemotion/release`; `vX.Y.Z-preview-NNN` → `simplemotion/preview`; `vX.Y.Z-private-NNN` → `simplemotion/private`; `vX.Y.Z-testing-NNN` → `simplemotion/testing`.
+Releases arrive via `repository_dispatch` from per-product source repos (in the `3400-0000-SM-Software` org). Source-repo `release.yml` workflows tag-route to the channel-appropriate target: bare `vX.Y.Z` → `simplemotion/sm-release`; `vX.Y.Z-preview-NNN` → `simplemotion/sm-preview`; `vX.Y.Z-private-NNN` → `simplemotion/sm-private`; `vX.Y.Z-testing-NNN` → `simplemotion/sm-testing`.
 
 The receiver is `.github/workflows/sm-publish-release.yml`. It uses the SM-Binary-Bridge App to download artifacts from the source run and `gh release create` them here.
 
 ## What this repo is NOT
 
-- **Not the installer.** Installer scripts live in `simplemotion/install` and route here via `--channel preview`.
+- **Not the installer.** Installer scripts live in `simplemotion/sm-install` and route here via `--channel preview`.
 - **Not the source.** Per-product source repos under `3400-0000-SM-Software` build the binaries that land here.
 - **Not the build pipeline.** Builds run in the source repos; this repo only receives + publishes.
 
