@@ -9,9 +9,12 @@ name: Promote release
 # No rebuild: the SAME signed artifacts are moved forward, so what ships
 # to users is byte-identical to what was tested. Manual trigger only.
 #
-# Tag scheme (zero-padded 3-digit iteration):
-#   v0.1.0-develop-001 → v0.1.0-testing-001 → v0.1.0-preview-001
-#     → v0.1.0-release-001 → … → v0.1.0   (bare = GA, sm-welcome only)
+# Tag scheme — the develop build's NNN is carried UNCHANGED up the ladder
+# (same NNN = same artifact). The release repo holds staging candidates as
+# vX.Y.Z-release-NNN (prerelease, never latest); a final promote turns ONE of
+# them into bare vX.Y.Z (GA = GitHub's latest):
+#   v0.1.0-develop-134 → v0.1.0-testing-134 → v0.1.0-preview-134
+#     → v0.1.0-release-134 (staging in sm-release) → v0.1.0 (GA, = latest)
 #
 # Auth: the SM-Binary-Bridge App (same PEM/Client-ID as publish-release).
 # The minted token is scoped to the source channel repo (Contents:Read)
@@ -25,10 +28,10 @@ on:
         description: Package name (e.g. sm-welcome)
         required: true
       source_tag:
-        description: Tag to promote FROM (e.g. v0.1.0-develop-003)
+        description: Tag to promote FROM in sm-testing (e.g. v0.1.0-testing-134)
         required: true
       target_tag:
-        description: New tag for THIS channel (e.g. v0.1.0-testing-001; bare vX.Y.Z = GA)
+        description: New tag for THIS channel — carry the develop NNN (e.g. v0.1.0-preview-134)
         required: true
       source_repo:
         description: Override source repo (default simplemotion/sm-testing). Use this repo's own name to finalise a release-NNN → GA.
