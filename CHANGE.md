@@ -24,9 +24,9 @@ This repo hosts release-asset binaries for the **preview** channel. Releases lan
 
 | Version | Hash | Date | Author | Notes |
 |---------|------|------|--------|-------|
-| _(no releases yet)_ | | | | |
+| (auto) | &mdash; | 2026-08-17 | Greg Gowans | Retired `sm-ci.yml` (cargo-cult stub on a repo with no Rust; as a public repo it could never call the internal reusable workflow, so every push since 2026-08-04 was a zero-job startup failure) and `sm-promote.yml` (promotion now runs cross-repo from `3400-9993-SM-Publish`). `sm-publish-release.yml` stays &mdash; it still receives the `publish-binary` dispatch. |
 
-The first release tag will be `v0.1.0`.
+No releases have been cut yet; the first release tag will be `v0.1.0`.
 
 ---
 
