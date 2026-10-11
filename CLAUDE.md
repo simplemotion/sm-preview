@@ -21,7 +21,7 @@ Releases here are GitHub Release assets (binaries + `.sha256` + `.sigstore.jsonl
 | `simplemotion/sm-develop` | internal | Development — earliest builds |
 | `simplemotion/sm-testing` | private | In-flight test builds |
 
-Each channel has its own `releases/latest` namespace, so the repos do not use the prerelease flag. Consumers select this channel with `--channel preview` in the installer. Staff use the internal installer copy. Freelance and customers cohorts use the external installer copy. Do not write the installer URL in this repo. The [sm-install README](https://github.com/simplemotion/sm-install#readme) is the single source for it.
+Each channel has its own `releases/latest` namespace, so the repos do not use the prerelease flag. Consumers select this channel with `--channel preview` in the installer. Executive and employees cohorts use the internal installer copy. Freelance and customers cohorts use the external installer copy. This repo is public, so anyone can download from it without a GitHub account. It has no team grants and carries only public-eligible packages. Do not write the installer URL in this repo. The [sm-install README](https://github.com/simplemotion/sm-install#readme) is the single source for it.
 
 ## How releases land here
 
@@ -79,6 +79,9 @@ bare **`v0.1.0` GA** on `release` (always marked Latest).
 (and its visibility), and the public repos simply never receive a
 non-preview / non-GA tag. `sm-release` accepts **only bare `vX.Y.Z`
 (GA)** promotion targets; cut rc/preview builds on `testing`/`preview`.
+
+A promotion to `preview` needs the same two-admin external approval as a
+promotion to `release` (3400-0000-SM-Software/3400-9993-SM-Publish#30).
 
 Each receiving channel repo has `.github/workflows/sm-promote.yml`
 (manual dispatch) that copies a release from the previous channel into

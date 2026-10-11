@@ -27,7 +27,8 @@ This is the **public** binary-distribution surface for SimpleMotion's **preview*
 - **Adversary substitutes the binary at rest.** Mitigated by SHA256 sidecar verification on every download and by sigstore build-provenance verification against the per-product source repo.
 - **Adversary smuggles a malicious release via dispatch.** `sm-publish-release.yml` whitelists the source-repo owner (`3400-0000-SM-Software`). A dispatch from any other owner is rejected.
 - **Adversary compromises the SM-Binary-Bridge GitHub App.** Would gain `Contents:Write` on this repo. Mitigation: App's private key lives only in `BRIDGE_APP_PRIVATE_KEY` secret here and on dispatching source repos, base64-wrapped per the SimpleMotion convention. Rotate via `sm-get/scripts/admin/set-bridge-app-secrets.sh`.
-- **Adversary publishes a malicious preview as a public release.** Preview channel is documented as early-access. Consumers on the release channel pull from `simplemotion/sm-release` and are unaffected.
+- **Adversary publishes a malicious preview as a public release.** The preview channel is documented as early-access. Consumers on the release channel pull from `simplemotion/sm-release` and are unaffected. A promotion to this repo needs two approvals from two different admins (3400-0000-SM-Software/3400-9993-SM-Publish#30).
+- **Adversary reads a package that is not for the public.** This repo is public, and anyone can download from it without a GitHub account. It has no team grants, so visibility is the only access control. Only public-eligible packages can come here. Internal-only packages stay on `sm-develop` and `sm-testing`, which are private.
 
 ## Secrets handling
 
