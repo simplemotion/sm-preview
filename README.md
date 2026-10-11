@@ -19,7 +19,7 @@ where `<host-triple>` is `aarch64-apple-darwin` (Apple silicon; Intel Macs are n
 
 ## How to install
 
-Use the SimpleMotion installer and select this channel with `--channel preview`. Executive and employees cohorts use the internal installer copy. Freelance and customers cohorts use the external installer copy. This channel carries only packages that can go to the public `release` channel.
+Use the SimpleMotion installer and select this channel with `--channel preview`. Executive and employees cohorts use the internal installer copy. Freelance and customers cohorts use the external installer copy. This repo is public. Anyone can download from it without a GitHub account. This channel carries only packages that can go to the public `release` channel.
 
 The [`simplemotion/sm-install` README](https://github.com/simplemotion/sm-install#readme) gives the install commands for each copy. This repo does not copy those commands, because the installer URL can change.
 
